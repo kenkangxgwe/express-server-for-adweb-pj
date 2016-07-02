@@ -44,7 +44,17 @@ URL：`/sight/searchlist?scenelist=***&scenelist=***`
 前端：关键词  
 数据库：查找数据库中含有的景点名称，返回景点ID  
 后端：返回景点ID数组，或-1（无匹配项）  
-eg：`/sight/searchlist?scenelist=上海博物馆&scenelist=上海自然博物馆`  
+eg：`/sight/searchlist?scenelist=上海博物馆&scenelist=上海自然博物馆` 
+* __获取景点标签列表__  
+URL：`/tag/search?sightid=***`  
+前端：景观ID  
+数据库：查找与景观ID相关联的标签ID
+后端：返回相关联标签ID列表
+* __查看标签__   
+URL：`/tag/view?tagid=***&sightid=1`  
+前端：标签ID、景观ID   
+数据库：查找标签ID信息；统计该标签该景观下人数  
+后端：返回标签信息，或-1（标签ID不存在）   
 * __景点收藏数、足迹数、心愿单数、评分刷新__  
 URL：  
 `/calfav?sightid=***`    
@@ -104,16 +114,7 @@ URL: `/tag/newtag?sightid=***&userid=***&tag=***&tagtype=***`
 数据库：判断是否已有该标签，若无则添加该标签；
 判断该标签是否已与该景点和用户关联，若无则在标签关系表中建立关系，若有则在标签关系表中取消关系；
 重新计算该景点该标签人数、标签关联景点数；若标签关联景点数等于零，输出该标签
-* __获取景点标签列表__  
-URL：`/tag/search?sightid=***`  
-前端：景观ID  
-数据库：查找与景观ID相关联的标签ID
-后端：返回相关联标签ID列表
-* __查看标签__   
-URL：`/tag/view?tagid=***&sightid=1`  
-前端：标签ID、景观ID   
-数据库：查找标签ID信息；统计该标签该景观下人数  
-后端：返回标签信息，或-1（标签ID不存在）
+
 
 ## 参考资料
 1. http://blog.csdn.net/yourlin/article/details/48268361
