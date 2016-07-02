@@ -93,13 +93,13 @@ var updateSightFav = function (param, connection, callback) {
 var searchFav = function (param, connection, callback) {
     connection.execute(SQL.searchFav, [param.userid], function (err, result) {
         var SightList = result.rows;
-        var len = Object.keys(SightList);
+        var len = Object.keys(SightList).length;
         var jsonify = function(info, index) {
             if(index == len) {
                 callback(info);
             }
             else {
-                info[index] = SightList[index][0];
+                info.push(SightList[index][0]);
                 jsonify(info, index + 1);
             }
         };
@@ -122,7 +122,7 @@ var delWish = function (param, connection) {
 var searchWish = function (param, connection, callback) {
     connection.execute(SQL.searchWish, [param.userid], function (err, result) {
         var SightList = result.rows;
-        var len = Object.keys(SightList);
+        var len = Object.keys(SightList).length;
         var jsonify = function(info, index) {
             if(index == len) {
                 callback(info);
@@ -151,7 +151,7 @@ var delStep = function (param, connection) {
 var searchStep = function (param, connection, callback) {
     connection.execute(SQL.searchStep, [param.userid], function (err, result) {
         var SightList = result.rows;
-        var len = Object.keys(SightList);
+        var len = Object.keys(SightList).length;
         var jsonify = function(info, index) {
             if(index == len) {
                 callback(info);
@@ -346,12 +346,18 @@ module.exports = {
         oracledb.getConnection(LoginConf, function (err, connection) {
             if (err) { console.error(err.message); return; }
             var param = req.query || req.params;
-            searchFav(param, connection, function (SightList) {
-                    res.send({
-                        "sightid": SightList
+            findUserID(param, connection, function (UserList) {
+                if (!Object.keys(UserList).length) {
+                    res.send('-1');
+                } else {
+                    searchFav(param, connection, function (SightList) {
+                        res.send({
+                            "sightid": SightList
+                        });
                     });
+                    connection.close();
+                }
             });
-            connection.close();
         });
     },
 
@@ -379,12 +385,18 @@ module.exports = {
         oracledb.getConnection(LoginConf, function (err, connection) {
             if (err) { console.error(err.message); return; }
             var param = req.query || req.params;
-            searchWish(param, connection, function (SightList) {
-                    res.send({
-                        "sightid": SightList
+            findUserID(param, connection, function (UserList) {
+                if (!Object.keys(UserList).length) {
+                    res.send('-1');
+                } else {
+                    searchWish(param, connection, function (SightList) {
+                        res.send({
+                            "sightid": SightList
+                        });
                     });
+                    connection.close();
+                }
             });
-            connection.close();
         });
     },
 
@@ -412,12 +424,18 @@ module.exports = {
         oracledb.getConnection(LoginConf, function (err, connection) {
             if (err) { console.error(err.message); return; }
             var param = req.query || req.params;
-            searchStep(param, connection, function (SightList) {
-                    res.send({
-                        "sightid": SightList
+            findUserID(param, connection, function (UserList) {
+                if (!Object.keys(UserList).length) {
+                    res.send('-1');
+                } else {
+                    searchStep(param, connection, function (SightList) {
+                        res.send({
+                            "sightid": SightList
+                        });
                     });
+                    connection.close();
+                }
             });
-            connection.close();
         });
     },
 

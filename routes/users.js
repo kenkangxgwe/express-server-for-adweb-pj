@@ -15,6 +15,9 @@ router.get('/login', userinfo.login);
 
 // For user himself
 router.get('/viewuser', userinfo.viewUser);
+router.get('/viewfav', userinfo.viewFav);
+router.get('/viewwish', userinfo.viewWish);
+router.get('/viewstep', userinfo.viewStep);
 router.get('/newpassword', userinfo.newPassword);
 router.get('/newavatar', userinfo.newAvatar);
 router.get('/newcomment', userinfo.newComment);
