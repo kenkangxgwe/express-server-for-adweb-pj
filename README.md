@@ -1,12 +1,11 @@
-# Server powered by Express
-[toc]
+# 高级Web课程项目 Express 服务器
 
-## DAO
+## 数据库接口
 ### 用户部分
 1. __注册__   
 URL：`/signup?username=***&password=***`    
 前端：用户名、密码    
-数据库：查询用户信息表，存入新用户数据
+数据库：查询用户信息表，存入新用户数据  
 后端：返回新用户 ID 或返回 -1 (重名用户，注册失败)        
 
 * __登陆__
@@ -48,12 +47,10 @@ eg：`search?keyword=博物馆`
 
 * __景点收藏数、足迹数、心愿单数、评分刷新__  
 URL：  
-```
-/calfav?sightid=***  
-/calwish?sightid=***  
-/calstep?sightid=***  
-/calgrade?sightid=***
-```  
+`/calfav?sightid=***`    
+`/calwish?sightid=***`  
+`/calstep?sightid=***`  
+`/calgrade?sightid=***` 
 前端：景点ID  
 数据库：从收藏表、足迹表、心愿单表、评分表中统计收藏数、足迹数、心愿单数、评分，并更新至景点信息  
 后端：返回收藏数、足迹数、心愿单数、评分，或-1（无此景点）  
@@ -85,11 +82,9 @@ URL：`/sight/media?mediaid=***`
 ### 用户景点交互部分
 1. __收藏、心愿单、足迹__  
 URL：  
-```
-/user/newfav?userid=***&sightid=***&type=***
-/user/newwish?userid=***&sightid=***&type=***
-/user/newstep?userid=***&sightid=***&type=***
-```
+`/user/newfav?userid=***&sightid=***&type=***`  
+`/user/newwish?userid=***&sightid=***&type=***`  
+`/user/newstep?userid=***&sightid=***&type=***`  
 前端：用户ID、景观ID、操作类型（1添加，0取消）  
 数据库操作：检查是否存在该用户和景点；根据操作类型添加或删除收藏、心愿单、足迹表中的数据；计算当前景点收藏、心愿单、足迹数，更新景点信息表中信息  
 
@@ -110,3 +105,16 @@ URL：`/user/newmedia?userid=***&sightid=***&timestamp=***&mediaurl=***&mediaurl
 前端：用户ID、景观ID、时间戳、媒体URL列表  
 数据库操作：检查是否存在该用户、景观、添加媒体URL  
 后端：返回媒体ID列表，或-1（不存在该用户），或-2（不存在该景点）  
+
+## 参考资料
+1. http://blog.csdn.net/yourlin/article/details/48268361
+* http://lbsyun.baidu.com/
+* https://www.npmjs.com/package/oracledb
+* https://github.com/oracle/node-oracledb/blob/master/doc/api.md
+* http://www.tuicool.com/articles/JfqYN3I
+* http://www.cnblogs.com/stone_w/p/4794747.html
+* http://enable-cors.org/server_expressjs.html
+* http://www.tuicool.com/articles/ENBRju
+* http://www.2cto.com/database/201310/251006.html
+* https://cnodejs.org/topic/56067a16272b724e5efefcce
+* http://thejackalofjavascript.com/architecting-a-restful-node-js-app/
