@@ -1,12 +1,8 @@
 var oracledb = require('oracledb');
+var LoginConf = require('./LoginConf')
 var SQL = require('./SightInfoSqlList');
-oracledb.autoCommit =true;
 
-LoginConf = {
-    user          : "sf_user",
-    password      : "salted-fish",
-    connectString : "159.203.230.233:49161/xe"
-};
+oracledb.autoCommit =true;
 
 var searchSightName = function(param, connection, callback) { 
     connection.execute(SQL.searchSightName, ['%' + decodeURI(param.keyword) + '%'], function(err, result) {

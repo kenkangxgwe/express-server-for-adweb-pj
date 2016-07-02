@@ -1,13 +1,8 @@
 var oracledb = require('oracledb');
+var LoginConf = require('./LoginConf')
 var SQL = require('./UserInfoSqlList');
 
 oracledb.autoCommit = true;
-
-LoginConf = {
-    user: "sf_user",
-    password: "salted-fish",
-    connectString: "159.203.230.233:49161/xe"
-};
 
 var findUserName = function (param, connection, callback) {
     connection.execute(SQL.findUserName, [decodeURI(param.username)], function (err, result) {
