@@ -19,6 +19,7 @@ var searchSightName = function(param, connection, callback) {
 };
 
 var findSightName = function(SightName, connection, callback) { 
+    console.log(SightName);
     connection.execute(SQL.findSightName, [SightName], function(err, result) {
         if (err) {
             console.error(err.message);
@@ -386,6 +387,7 @@ module.exports = {
             }
             var param = req.query || req.params;
             var len = Object.keys(param.scenelist).length;
+            console.log(len);
             var jsonify = function(info, index) {
                 if(index == len) {
                     res.send({
@@ -393,10 +395,13 @@ module.exports = {
                     });
                 } else {
                     findSightName(decodeURI(param.scenelist[index]), connection, function(SightList) {
+                        console.log(SightList);
                         if(Object.keys(SightList).length) {
+                            console.log("SL=" + SightList[0][0]);
+                            console.log("ind=" + SightList[0][0]);
                             info.push(SightList[0][0]);
-                            jsonify(info, index + 1);
                         }
+                        jsonify(info, index + 1);
                     });
                 }
             };
