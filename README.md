@@ -2,7 +2,7 @@
 
 ## 数据库接口
 ### 用户部分
-1. __注册__   
+* __注册__   
 URL：`/signup?username=***&password=***`    
 前端：用户名、密码    
 数据库：查询用户信息表，存入新用户数据  
@@ -32,7 +32,7 @@ URL： `/users/newpassword?userid=***&password=***&newpassword`
 后端：返回1（修改成功），返回-1（旧密码错误，修改失败）  
 
 ### 景点部分
-1. __查看景点信息__  
+* __查看景点信息__  
 URL：`/sight/viewsight?sightid=***`  
 前端：景观ID  
 数据库：查找相应景点的所有信息  
@@ -43,7 +43,14 @@ URL：`/sight/search?keyword=***`
 前端：关键词  
 数据库：查找包含关键词的景点名称，返回景点ID  
 后端：返回景点ID数组，或-1（无匹配项）  
-eg：`search?keyword=博物馆`  
+eg：`/sight/search?keyword=博物馆`  
+
+* __景点列表查询__
+URL：`/sight/searchlist?scenelist=***&scenelist=***`  
+前端：关键词  
+数据库：查找数据库中含有的景点名称，返回景点ID  
+后端：返回景点ID数组，或-1（无匹配项）  
+eg：`/sight/searchlist?scenelist=上海博物馆&scenelist=上海自然博物馆`  
 
 * __景点收藏数、足迹数、心愿单数、评分刷新__  
 URL：  
@@ -80,7 +87,7 @@ URL：`/sight/media?mediaid=***`
 后端：返回用户ID、时间戳、媒体URL  
 
 ### 用户景点交互部分
-1. __收藏、心愿单、足迹__  
+* __收藏、心愿单、足迹__  
 URL：  
 `/user/newfav?userid=***&sightid=***&type=***`  
 `/user/newwish?userid=***&sightid=***&type=***`  
