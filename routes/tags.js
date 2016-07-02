@@ -14,5 +14,6 @@ router.get('/newtag', function (req, res, next) {
 });
 
 router.get('/search', taginfo.searchSightTag);
+router.get('/view', taginfo.viewSightTag);
 
 module.exports = router;

@@ -52,6 +52,13 @@ var findSightTag = function(param, connection, callback) {
     });
 };
 
+var findTagID = function(param, connection, callback) {
+    connection.execute(SQL.findTagID, [param.tagid], function(err, result) {
+        if (err) { console.error(err.message); return; }
+        callback(result.rows[0]);
+    });
+};
+
 var calNumSight = function(TagID, connection, callback) {
     connection.execute(SQL.calNumSight, [TagID], function(err, result) {
         if (err) { console.error(err.message); return; }
@@ -132,6 +139,28 @@ module.exports = {
                     }
                 };
                 jsonify([], 0);
+            });
+            connection.close();
+        });
+    },
+
+    viewSightTag: function(req, res, next) {
+        oracledb.getConnection(LoginConf, function(err, connection) {
+            if (err) { console.error(err.message); return; }
+            var param = req.query || req.params;
+            findTagID(param, connection, function(TagInfo) {
+                if(!Object.keys(TagInfo).length) {
+                    res.send('-1');
+                } else {
+                    calNumUser(param, param.tagid, connection, function(NumUser) {
+                        res.send({
+                            "tagid":    TagInfo[0],
+                            "tagtype":  TagInfo[1],
+                            "tag":      TagInfo[2],
+                            "numuser":  NumUser
+                        });
+                    });
+                }
             });
             connection.close();
         });
